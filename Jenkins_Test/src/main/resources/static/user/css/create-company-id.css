@@ -1,0 +1,109 @@
+@charset "UTF-8";
+  
+.account {
+	padding: 6px 0 16px;
+	font-size: 36px;
+	color: #333;
+	font-weight: 700;
+	text-align: center;
+	margin-bottom: 15px;
+	margin-top: 100px;
+}
+
+.errMsg {
+	text-align: left;
+	margin-top: 10px;
+	color: #ff6b6b;
+	font-size: 14px;
+	line-height: 21px;
+}
+
+.email, .pw, .pw_check, .name, .verify, .eid, .Companydomain, .CompanyName {
+	color: #333;
+	font-size: 16px;
+	padding: 0 0 0 20px;
+	background: #FFFFFF;
+	width: 640px;
+	padding: 16px 20px;
+	color: #333;
+	border: 1px solid #ddd;
+	-webkit-border-radius: 8px;
+	border-radius: 8px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	margin-top:10px;
+}
+
+#emailAuthBtn, #eidAuthBtn {
+	margin: 20px 0 0 0;
+	color: #fff;
+	text-align: center;
+	background: #9F7AB0;
+	line-height: 52px;
+	height: 52px;
+	width: 130px;
+	border-radius: 8px;
+	font-size: 16xp;
+	font-wdight: 500;
+	border: none;
+	outline: none;
+}
+
+#verify_check {
+	margin: 20px 0 0 0;
+	color: #fff;
+	text-align: center;
+	background: #9F7AB0;
+	line-height: 52px;
+	height: 52px;
+	width: 130px;
+	border-radius: 8px;
+	font-size: 16xp;
+	font-wdight: 500;
+	border: none;
+	outline: none;
+}
+.auth-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#confirmBtn {
+    margin: 20px 0 0 0;
+    color: #fff;
+    text-align: center;
+    background: #9F7AB0;
+    line-height: 52px;
+    height: 52px;
+    width: 640px;
+    border-radius: 8px;
+    font-size: 16xp;
+    font-wdight: 500;
+    border: none;
+    outline: none;
+    display: block;
+    margin: auto;
+    margin-top: 40px;
+}
+#hiddenbutton{
+	color: #fff;
+	text-align: center;
+	background: #9F7AB0;
+	line-height: 52px;
+	height: 52px;
+	width: 130px;
+	border-radius: 8px;
+	font-size: 16xp;
+	font-wdight: 500;
+	border: none;
+	outline: none;
+	visibility: hidden;
+	}
+.errMsg{
+margin-top:5px;
+margin-bottom:5px;
+visibility: hidden;
+}
+
+

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.naver.myhome.mybatis.mapper.DocumentsMapper">
+
+
+ <select id="getAllDocuments" parameterType="documents" resultType="documents">
+    SELECT USERS.NAME as name, ISSUE.ID AS issueId, ORIGINAL_NAME as originalName, FILE_SIZE as fileSize, FILES.CREATED_AT as createdAt, FILES.SAVE_NAME as saveName, ISSUE.SUBJECT as subject
+    FROM ISSUE
+    INNER JOIN FILES ON ISSUE.ID = FILES.ISSUE_ID
+    INNER JOIN USERS ON ISSUE.CREATE_USER = USERS.ID
+    WHERE ISSUE.PROJECT_ID IN (
+        SELECT ISSUE.PROJECT_ID
+        FROM ISSUE
+        WHERE ISSUE.CREATE_USER = #{userId} AND
+        ORIGINAL_NAME LIKE '%' || UPPER(#{keyword}) || '%'
+    )
+</select>
+    <select id="searchByKeyword"  parameterType="map" resultType="map">
+	SELECT USERS.NAME as name, ISSUE.ID AS issueId, ORIGINAL_NAME as originalName , FILE_SIZE as fileSize, FILES.CREATED_AT as createdAt
+		FROM ISSUE
+		INNER JOIN FILES ON ISSUE.ID = FILES.ISSUE_ID
+		INNER JOIN USERS ON ISSUE.CREATE_USER = USERS.ID
+		WHERE ISSUE.PROJECT_ID IN (
+		   	SELECT ISSUE.PROJECT_ID
+		   	FROM ISSUE
+		   	WHERE ISSUE.CREATE_USER = #{userId} AND
+        	ORIGINAL_NAME LIKE '%' || UPPER(#{keyword}) || '%'
+		)
+  </select>
+  
+</mapper>

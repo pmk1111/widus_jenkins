@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.naver.myhome.mybatis.mapper.ProjectAndUserMapper">
+	<select id="getProjectAndUserInfo" resultType="com.naver.myhome.domain.ProjectAndUser">
+		SELECT DISTINCT users.name as userName, users.pic as userPic,
+		users.id as userId, p.title as projectTitle, p.color as projectColor
+		FROM users
+		JOIN employee ON users.id = employee.user_id
+		JOIN team ON employee.id = team.employee_id
+		JOIN project p ON p.id = team.project_id
+		WHERE team.project_id = #{projectId}
+	</select>
+</mapper>

@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.naver.myhome.mybatis.mapper.IssueMapper">
+
+	<resultMap id="IssueResultMap"
+		type="com.naver.myhome.domain.Issue">
+		<id property="id" column="id" />
+		<result property="totalcount" column="totalcount" />
+		<result property="todocount" column="todocount" />
+		<result property="progresscount" column="progresscount" />
+		<result property="resolvedcount" column="resolvedcount" />
+		<result property="donecount" column="donecount" />
+	</resultMap>
+
+	<select id="getIssueId" resultType="int">
+		select issue_id.nextval from
+		dual
+	</select>
+
+	<select id="getListCount" resultType="int">
+		select count(*) from issue
+		where project_id = #{projectId}
+	</select>
+
+	<select id="getIssueList" resultType="issue">
+		select i.*,
+		(SELECT name FROM users WHERE id = i.create_user) AS
+		create_user_name
+		from issue i
+		where project_id = #{projectId}
+		order by
+		created_at desc
+	</select>
+
+	<select id="getStatusCount" resultType="issue">
+		SELECT
+		count(*) AS totalcount,
+		SUM(CASE WHEN status = 'To Do' THEN 1 ELSE 0 END) AS todocount,
+		SUM(CASE WHEN status = 'In Progress' THEN 1 ELSE 0 END) AS progresscount,
+		SUM(CASE WHEN status = 'Resolved' THEN 1 ELSE 0 END) AS resolvedcount,
+		SUM(CASE WHEN status = 'Done' THEN 1 ELSE 0 END) AS donecount
+		FROM issue
+		WHERE project_id IN 
+		(SELECT project_id FROM team WHERE employee_id = #{employeeId}) and assigned = #{userId}
+	</select>
+
+
+	<select id="getFilteredIssueList"
+		resultType="com.naver.myhome.domain.Issue">
+		SELECT i.*,
+		(SELECT name FROM users WHERE id = i.create_user) AS create_user_name
+		FROM issue i
+		<where>
+			project_id = #{projectId}
+			<if test='issueStatus != "-"'>
+				AND status = #{issueStatus}
+			</if>
+			<if test='issuePriority != "-"'>
+				AND priority = #{issuePriority}
+			</if>
+		</where>
+		ORDER BY created_at DESC
+	</select>
+
+	<select id="searchIssues"
+		resultType="com.naver.myhome.domain.Issue">
+		SELECT i.*,
+		(SELECT name FROM users WHERE id = i.create_user) AS create_user_name
+		FROM
+		issue i
+		WHERE 
+		project_id = #{projectId}
+		AND
+		(UPPER(subject) LIKE '%' || UPPER(#{searchText}) || '%'
+		OR UPPER((SELECT name FROM users WHERE id = i.create_user)) LIKE '%' || UPPER(#{searchText}) || '%')
+		ORDER BY created_at DESC
+	</select>
+
+	<select id="getMyWork"
+		resultType="com.naver.myhome.domain.Issue">
+		SELECT * FROM issue
+		<where>
+			<if test='status != "" and status != null'>
+				status = #{status}
+			</if>
+		</where>
+		and assigned = #{userId}
+		ORDER BY created_at DESC
+	</select>
+
+	 <insert id="createIssue">
+     insert into issue 
+     values
+     (#{id}, #{project_id}, 
+     #{create_user}, #{type},
+     #{priority}, #{subject}, #{content},
+     #{status}, #{create_user}, #{assigned}, #{create_user}, SYSDATE, SYSDATE,#{mentioned})
+  </insert>
+
+	<select id="getIssueDetail" resultType="issue">
+		SELECT
+		i.*, (SELECT pic from users where id = i.create_user) As creater_pic,
+		(SELECT name FROM users WHERE id = i.create_user) AS create_user_name,
+		(SELECT NAME FROM users WHERE id = i.assigned) AS assigned_user_name,
+		(SELECT TITLE FROM project WHERE id = (SELECT project_id FROM ISSUE WHERE id = #{num})) as project_name,
+		(SELECT COLOR FROM project WHERE id = (SELECT project_id FROM ISSUE WHERE id = #{num})) as project_color
+		FROM issue i
+		WHERE i.id = #{num}
+	</select>
+
+	<update id="updateStatus">
+		UPDATE issue
+		SET status = #{status}
+		<if test="selectedUserId != null and selectedUserId != ''">
+			, assigned = #{selectedUserId}
+		</if>
+		, MODIFIER = #{sessionId}
+		WHERE id = #{issueId}
+	</update>
+
+	<update id="issueUpdate" parameterType="issue">
+		update issue
+		set type =
+		#{type},
+		priority = #{priority},
+		subject = #{subject},
+		content = #{content},
+		status = #{status},
+		assigned = #{assigned},
+		MODIFIER = #{sessionId},
+		mentioned = #{mentioned}
+		
+		where id = #{id}
+
+	</update>
+
+	<delete id="issueDelete">
+		delete from issue
+		where id = #{id}
+	</delete>
+</mapper>

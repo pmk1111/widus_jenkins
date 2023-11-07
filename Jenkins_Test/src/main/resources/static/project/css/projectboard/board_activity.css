@@ -1,0 +1,334 @@
+@charset "UTF-8";
+
+       /* table */
+        .datatable-top>nav:first-child,
+        .datatable-top>div:first-child,
+        .datatable-bottom>nav:first-child,
+        .datatable-bottom>div:first-child {
+            float: left;
+        }
+
+        .datatable-selector {
+            padding: 6px;
+        }
+
+        .datatable-top>nav:last-child,
+        .datatable-top>div:not(first-child),
+        .datatable-bottom>nav:last-child,
+        .datatable-bottom>div:last-child {
+            float: right;
+        }
+
+        .datatable-input {
+            padding: 6px 12px;
+        }
+
+        .dashboard .recent-sales .table thead {
+            background: #f6f6fe;
+        }
+
+        .table>thead {
+            vertical-align: bottom;
+        }
+
+        tbody,
+        td,
+        tfoot,
+        th,
+        thead,
+        tr {
+            border-color: inherit;
+            border-style: solid;
+            border-width: 0;
+        }
+
+        .dashboard .recent-sales .table thead th {
+            border: 0;
+        }
+
+        .datatable-table>thead>tr>th {
+            vertical-align: bottom;
+            text-align: left;
+            border-bottom: 1px solid #d9d9d9;
+        }
+
+        .datatable-table>tbody>tr>td,
+        .datatable-table>tbody>tr>th,
+        .datatable-table>tfoot>tr>td,
+        .datatable-table>tfoot>tr>th,
+        .datatable-table>thead>tr>td,
+        .datatable-table>thead>tr>th {
+            vertical-align: top;
+            padding: 8px 10px;
+        }
+
+        .datatable-table th {
+            vertical-align: bottom;
+            text-align: left;
+        }
+
+        .table-borderless>:not(caption)>*>* {
+            border-bottom-width: 0;
+        }
+
+        .table>:not(caption)>*>* {
+            padding: 0.5rem 0.5rem;
+            color: var(- -bs-table-color-state, var(- -bs-table-color-type, var(- -bs-table-color)));
+            background-color: var(- -bs-table-bg);
+            border-bottom-width: var(- -bs-border-width);
+            box-shadow: inset 0 0 0 9999px var(- -bs-table-bg-state, var(- -bs-table-bg-type, var(- -bs-table-accent-bg)));
+        }
+
+        tbody,
+        td,
+        tfoot,
+        th,
+        thead,
+        tr {
+            border-color: inherit;
+            border-style: solid;
+            border-width: 0;
+        }
+
+        th {
+            text-align: inherit;
+            text-align: -webkit-match-parent;
+        }
+
+        .datatable-table th button,
+        .datatable-pagination-list button {
+            color: inherit;
+            border: 0;
+            background-color: inherit;
+            cursor: pointer;
+            text-align: inherit;
+            font-weight: inherit;
+            font-size: inherit;
+        }
+
+        .datatable-sorter,
+        .datatable-filter {
+            display: inline-block;
+            height: 100%;
+            position: relative;
+            width: 100%;
+        }
+
+        button,
+        select {
+            text-transform: none;
+        }
+
+        button,
+        input,
+        optgroup,
+        select,
+        textarea {
+            margin: 0;
+            font-family: inherit;
+            font-size: inherit;
+            line-height: inherit;
+        }
+
+        .datatable-sorter,
+        .datatable-filter {
+            display: inline-block;
+            height: 100%;
+            position: relative;
+            width: 100%;
+        }
+
+        .datatable-sorter::before,
+        .datatable-sorter::after {
+            content: "";
+            height: 0;
+            width: 0;
+            position: absolute;
+            right: 4px;
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            opacity: 0.2;
+        }
+
+        .datatable-sorter::before {
+            border-top: 4px solid #717171;
+            bottom: 0px;
+        }
+
+        .datatable-sorter::after {
+            border-bottom: 4px solid #717171;
+            border-top: 4px solid transparent;
+            top: 0px;
+        }
+
+        .datatable-sorter.asc::before {
+            border-top-color: #000 !important;
+            /* darker arrow color */
+        }
+
+        .datatable-sorter.desc::after {
+            border-bottom-color: #000 !important;
+            /* darker arrow color */
+        }
+
+        .datatable-sorter.desc::before {
+            border-top-color: #717171 !important;
+            /* lighter arrow color */
+        }
+
+        .datatable-sorter.asc::after {
+            border-bottom-color: #717171 !important;
+            /* lighter arrow color */
+        }
+
+        .table-borderless>:not(:first-child) {
+            border-top-width: 0;
+        }
+
+        .table>tbody {
+            vertical-align: inherit;
+        }
+
+        .text-primary {
+            - -bs-text-opacity: 1;
+            color: rgba(var(- -bs-primary-rgb), var(- -bs-text-opacity)) !important;
+        }
+
+        .datatable-top,
+        .datatable-bottom {
+            padding: 8px 10px;
+        }
+
+        .datatable-info {
+            margin: 7px 0;
+        }
+
+        .datatable-pagination ul {
+            margin: 0;
+            padding-left: 0;
+        }
+
+        .datatable-bottom::after {
+            clear: both;
+            content: " ";
+            display: table;
+        }
+
+        .table td {
+            border-style: none;
+        }
+
+        .table {
+            border-bottom: 1px solid #d9d9d9
+        }
+
+        .datatable-wrapper {
+            width: 96%;
+            margin-left: 2%
+        }
+
+        #noResultsRow td {
+            text-align: center;
+        }
+
+        .post-title {
+            display: block;
+            /* or inline-block */
+            width: 100%;
+            /* adjust as needed */
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .bg-info {
+            background-color: #5571C6 !important
+        }
+
+        .bg-success {
+            background-color: #91CC75 !important
+        }
+
+        .bg-warning {
+            background-color: #FAC858 !important
+        }
+        
+                /* Activity */
+        .text-dark {
+            - -bs-text-opacity: 1;
+            color: rgba(var(- -bs-dark-rgb), var(- -bs-text-opacity)) !important;
+        }
+
+        .fw-bold {
+            font-weight: 700 !important;
+        }
+
+        .dashboard .activity {
+            font-size: 14px;
+        }
+
+        .activity-content {
+            padding-left: 10px;
+            padding-bottom: 20px;
+        }
+
+        .activity-item:first-child .activite-label::before {
+            top: 5px;
+        }
+
+        .activity-item:last-child .activity-content {
+            padding-bottom: 0;
+        }
+
+        .activity-badge {
+            margin-top: 3px;
+            z-index: 1;
+            font-size: 11px;
+            line-height: 0;
+            border-radius: 50%;
+            flex-shrink: 0;
+            border: 3px solid #fff;
+            flex-grow: 0;
+        }
+
+        .activite-label::before {
+            content: "";
+            position: absolute;
+            right: -11px;
+            width: 4px;
+            top: 0;
+            bottom: 0;
+            background-color: #eceefe;
+        }
+
+        .activite-label {
+            color: #888;
+            position: relative;
+            flex-shrink: 0;
+            flex-grow: 0;
+            min-width: 64px;
+        }
+
+        .activity-content {
+            display: block;
+            width: 70%;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .bi-circle-fill.darker-icon::before {
+            filter: brightness(20%);
+        }
+
+        .activity-badge.light-border {
+            border-color: #323232;
+        }
+        
+        .recent-activity{
+	        margin-left: 6%;
+		    margin-top: 4%;
+		    overflow: auto;
+		    max-height: 268px;
+		    width: 600px;
+        }

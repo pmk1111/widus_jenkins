@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.naver.myhome.mybatis.mapper.EmployeeMapper">
+	
+	<select id = "getEmplyeeInfoById" parameterType="user" resultType="employee">
+		select ID, USER_ID , COMPANY_ID ,STATUS, AUTH, DEPARTMENT, POSITION , VISIT_COUNT 
+		FROM EMPLOYEE WHERE USER_ID = #{id}
+	</select>
+	
+	<insert id = "insert" parameterType="employee"> 
+			INSERT INTO EMPLOYEE 
+			(ID,USER_ID,COMPANY_ID,STATUS,AUTH,DEPARTMENT,POSITION)
+			VALUES
+			(USER_ID.NEXTVAL,#{user_id},#{company_id},#{status},#{auth},#{department},#{position})
+	</insert>
+	
+		<!-- mk for chat -->
+	<select id="getEmployeeId" resultType="int">
+		select id from employee
+		where user_id = #{userId}
+	</select>
+	
+	<select id="getEmployeeListForChat" resultType="employee">
+		SELECT e.*,
+		u.name AS user_name, u.pic AS user_pic, u.email AS user_email
+		FROM employee e
+		JOIN users u ON e.user_id = u.id
+		WHERE e.company_id = (SELECT company_id FROM employee WHERE user_id = #{userId})
+		AND e.user_id != #{userId}
+	</select>
+<!-- mk for chat end -->
+	 
+</mapper>

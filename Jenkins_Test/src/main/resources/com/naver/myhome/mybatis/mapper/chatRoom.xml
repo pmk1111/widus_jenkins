@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+	namespace="com.naver.myhome.mybatis.mapper.ChatRoomMapper">
+
+	<select id="getNotReadCnt" resultType="int">
+		select count(*) from
+		chatroom
+		where
+		(
+		create_by = #{employeeId}
+		OR
+		participant = #{employeeId}
+		)
+		and resent_sender != #{employeeId}
+		and not_read = 1
+	</select>
+
+	<select id="getChatRoomInfo"
+		resultType="com.naver.myhome.domain.ChatRoom">
+		SELECT * FROM chatroom
+		WHERE
+		(create_by = #{employeeId} AND
+		participant = #{participant})
+		OR
+		(create_by = #{participant} AND
+		participant = #{employeeId})
+	</select>
+
+	<select id="getChatRoomInfoById"
+		resultType="com.naver.myhome.domain.ChatRoom">
+		SELECT * FROM chatroom
+		WHERE
+		id = #{selectedRoomId}
+	</select>
+
+	<select id="getChatRoomList"
+		resultType="com.naver.myhome.domain.ChatRoom">
+		SELECT
+		cr.*,
+		CASE
+		WHEN cr.create_by = #{employeeId} THEN cr.participant
+		ELSE cr.create_by
+		END AS other_participant_id,
+		u.name AS participant_name,
+		u.pic AS participant_pic
+		FROM chatroom cr
+		JOIN employee e ON (cr.create_by = e.id OR cr.participant = e.id)
+		JOIN users u ON e.user_id = u.id
+		WHERE (cr.create_by = #{employeeId} OR cr.participant = #{employeeId})
+		AND e.id != #{employeeId}
+		AND cr.resent_content is not null
+		order by updated_at desc
+	</select>
+
+	<insert id="createChatRoom">
+		<selectKey order="BEFORE" keyProperty="id" resultType="int">
+			select chatroom_id.nextval from dual
+		</selectKey>
+		insert into chatroom
+		values
+		(#{id}, #{employeeId}, #{participant}, 0, 0,
+		null, SYSDATE, null)
+	</insert>
+
+	<update id="updateResentContent">
+		update chatroom
+		set resent_content = #{resultText},
+		resent_sender = #{employeeId},
+		not_read = 1,
+		updated_at = SYSDATE
+		where
+		id = #{selectedRoomNum}
+	</update>
+
+	<update id="updateReadCnt">
+		update chatroom
+		set not_read = 0
+		where id =
+		#{selectedRoomNum}
+	</update>
+</mapper>

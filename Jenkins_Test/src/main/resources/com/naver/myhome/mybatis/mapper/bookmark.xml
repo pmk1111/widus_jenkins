@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.naver.myhome.mybatis.mapper.BookmarkMapper">
+
+   <select id="checkBookmark" resultType="int">
+        select count(*)
+        from bookmark
+          where issue_id = #{issueId}
+       and user_id = #{userId}
+    </select>
+    
+    <select id = "countBookmark" resultType="int">
+       select count(*)
+       from bookmark
+       where user_id = #{userId}
+    </select>
+    
+    <select id = "getBookmarkList" resultType="bookmark">
+        SELECT i.TYPE, i.SUBJECT,p.TITLE , i.priority, u.NAME, ROUND((SYSDATE - regDate)*24*60) AS currentTime
+      FROM bookmark b
+         INNER JOIN issue i ON i.ID =  b.ISSUE_ID
+       INNER JOIN project p ON i.PROJECT_ID = p.ID
+       INNER JOIN users u ON i.CREATE_USER = u.ID
+      WHERE b.user_id = #{userId}
+    </select>
+    
+    <select id="getSearchList" parameterType="map" resultType="bookmark">
+      SELECT i.TYPE, i.SUBJECT, p.TITLE , u.NAME, i.priority, ROUND((SYSDATE - regDate)*24*60) AS currentTime, b.issue_id, b.user_id, b.id 
+      FROM bookmark b INNER JOIN issue i ON i.ID = b.ISSUE_ID 
+      INNER JOIN project p ON i.PROJECT_ID = p.ID 
+      INNER JOIN users u ON i.CREATE_USER = u.ID 
+      WHERE b.user_id = #{userId}
+      <include refid="search_"/>
+      order by b.regDate desc
+   </select>
+
+   <sql id="search_">
+    <if test="search_word != null and search_word != ''"> 
+      and i.subject LIKE #{search_word} 
+    </if>
+   </sql>
+   
+    <insert id="addBookmark">
+       insert into bookmark
+       values(bookmark_seq.nextval, #{userId}, #{issueId}, sysdate)
+    </insert>
+    
+    <delete id="deleteBookmark">
+       delete
+       from bookmark
+       where issue_id = #{issueId}
+       and user_id = #{userId}
+    </delete>
+
+</mapper>

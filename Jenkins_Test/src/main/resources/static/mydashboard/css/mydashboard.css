@@ -1,0 +1,425 @@
+@charset "UTF-8";
+
+.welcome-message {
+	width: 100%;
+}
+
+.my-schedule {
+	width: 66%;
+	margin-right: 6.6px;
+}
+
+.memo, .my-work {
+	min-height: 315px;
+	max-height: 315px;
+}
+
+/* mydashboard css */
+#memo-content {
+	width: 100%;
+	height: 100%;
+	max-height: 284px;
+	overflow: auto;
+	border-style: none;
+	outline: none
+}
+
+.situation-list {
+	width: 45%;
+	padding: 10px 12px;
+}
+
+.h-100 {
+	min-height: 370px;
+}
+
+.current-situation {
+	display: flex;
+	padding: 10px 12px;
+	flex-wrap: wrap;
+	-webkit-box-pack: justify;
+	justify-content: space-between;
+	margin-bottom: 0;
+	height: calc(100% - 67.797px);
+	list-style: none;
+}
+
+.current-situation li {
+	display: flex;
+	justify-content: space-between;
+	padding: 10px 12px;
+	align-items: center;
+	border-radius: 5px;
+	margin: 5px;
+	box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, .26);
+}
+
+.current-situation h4 {
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 0;
+	font-size: 1rem;
+	font-weight: 900
+}
+
+.current-situation p {
+	float: right;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 0;
+	width: 50px;
+	height: 50px;
+	border-radius: 8px;
+	font-weight: 900
+}
+
+.current-situation p>span {
+	color: white;
+	font-size: 1rem;
+}
+
+em {
+	font-style: normal;
+	margin-bottom: 10px;
+	color: #333;
+}
+
+.total-work {
+	margin-right: 50% !important;
+	background-color: #f3e9ff;
+}
+
+.total-work span {
+	color: #6449fc;
+	font-weight: 900
+}
+
+.total-work p {
+	background-color: #6449fc;
+}
+
+.ToDo-work {
+	background-color: #def5ff
+}
+
+.ToDo-work h4>span {
+	color: #00b2ff;
+}
+
+.ToDo-work p {
+	background-color: #00b2ff;
+}
+
+.Progress-work {
+	background-color: #e7f4e9
+}
+
+.Progress-work h4>span {
+	color: #00b01c;
+}
+
+.Progress-work p {
+	background-color: #00b01c;
+}
+
+.Resolved-work {
+	background-color: #fff0e1
+}
+
+.Resolved-work h4>span {
+	color: #ff7d04;
+}
+
+.Resolved-work p {
+	background-color: #ff7d04;
+}
+
+.Done-work {
+	background-color: #e7efff
+}
+
+.Done-work h4>span {
+	color: #402a9d;
+}
+
+.Done-work p {
+	background-color: #402a9d;
+}
+
+.row {
+	min-height: 370px;
+}
+
+.my-work-txt {
+	padding: 24px;
+}
+
+.work-type {
+	list-style: none;
+	padding: 0;
+	display: flex;
+	justify-content: space-between;
+	font-weight: 900;
+	font-size: 1rem;
+	border-bottom: 1px solid rgba(0, 0, 0, .08);
+}
+
+.work-type li {
+	flex: 1;
+	text-align: center;
+	padding: 10px;
+	color: #999999;
+}
+
+.work-type li:hover {
+	cursor: pointer;
+	color: #333
+}
+
+.work-type li.active {
+	color: black; /* 클릭된 항목의 텍스트 색상을 검정색으로 변경 */
+	border-bottom: 2px solid black; /* 클릭된 항목의 하단 보더 색상을 검정색으로 변경 */
+}
+
+.board {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	overflow-y: auto;
+	max-height: 227.891px;
+}
+
+.board li {
+	display: flex;
+	height: 40px;
+	justify-content: space-between;
+	align-items: center;
+	padding: 10px;
+	border-radius: 5px
+}
+
+.board li:hover {
+	cursor: pointer;
+	background-color: #e7e8ff;
+	transition: .2s;
+}
+
+.type-title {
+	display: flex;
+	align-items: center
+}
+
+/* .type-title span {
+	position: relative;
+	top: 2px;
+} */
+.type-title img+span {
+	margin-left: 5px;
+}
+
+.type-title span+a {
+	margin-left: 10px;
+}
+
+.my-work-txt:hover {
+	color: #696cff;
+	transition: .3s;
+}
+
+.post-title {
+	position: relative;
+	top: 1px;
+}
+
+.year-month {
+	display: flex;
+	justify-content: space-evenly;
+	text-align: center;
+	font-size: 1.4rem;
+	font-weight: 700;
+	color: black;
+}
+
+.month-move {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 35px;
+	height: 35px;
+	border: 1.5px solid #B5BBC2;
+	background-color: white;
+	border-radius: 5px;
+}
+
+.month-move:hover {
+	border-color: #9F7AB0;
+}
+
+.calendar{
+	margin-top:10px
+}
+
+.calendar table {
+	width: 90%;
+	height: 210px;
+	max-height: 100%;
+	margin: 20px 5%;
+}
+
+.date-month th, td {
+	text-align: center;
+	border-radius: 50%;
+}
+
+tbody td a {
+	display: inline-block;
+	width: 30px;
+	height: 30px;
+	border: 1.5px solid white;
+	border-radius: 5px;
+	color: black !important;
+	font-weight: 600
+}
+
+tbody td a:hover {
+	cursor: pointer;
+	border-color: #6449fc;
+	color: #6449fc !important;
+}
+
+tbody td a>span {
+	position: relative;
+	top: 2.5px;
+	right: 0.1px;
+}
+
+.date-select {
+	background-color: #6449fc;
+	color: white !important;
+}
+
+.myowrk .board {
+	position: relative;
+}
+
+.no-work {
+	position: absolute;
+	top: 60%;
+	left: 50%;
+	font-size: 18px;
+	transform: translate(-50%, -50%);
+}
+
+.no-work:hover {
+	color: #5f61e6;
+	transition: .3s;
+}
+
+.post-title {
+	color: #697A8D;
+}
+
+.priority-date {
+	display: flex;
+	justify-content: space-around;
+	margin-right: 14px;
+}
+
+.mywork-priority {
+	width: 80px;
+	margin-right: 10px;
+	text-align: center;
+	color: white;
+	border-radius: 0.25rem
+}
+
+.low {
+	background-color: #FAC858;
+}
+
+.middle {
+	background-color: #91CC75;
+}
+
+.high {
+	background-color: #5571C6;
+}
+
+.critical {
+	background-color: #FF3E1D;
+}
+
+.schedule-item:hover {
+	cursor: pointer;
+}
+
+.schedule-title:hover {
+	transition: .3s;
+	color: #5f61e6;
+}
+
+.go-calendar {
+	color: #566a7f
+}
+
+.go-calendar:hover, .go-mywork:hover {
+	color: #5f61e6;
+	text-decoration: none;
+	transition: .3s;
+}
+
+.schedules {
+	max-height: 300px;
+	overflow: auto;
+	list-style: none;
+	margin-top: 50px;
+	padding: 0;
+}
+
+.schedules li {
+	display: flex;
+	align-items: center;
+	margin: 12px 0;
+	padding-left: 32px
+}
+
+.schedules img {
+	width: 35px;
+	height: 35px
+}
+
+.schedule-title-date {
+	display: flex;
+	flex-direction: column;
+	padding-left: 15px;
+	font-size: 14px
+}
+
+.schedule-title {
+	font-weight: 700;
+	color: #333333;
+}
+
+.no-schdule-today {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 250px;
+	text-align: center;
+	transform: translate(-50%, -50%);
+	font-size: 18px
+}
+
+.no-schdule-today:hover {
+	color: #5f61e6;
+	transition: .3s;
+}
+
+.selected-schedule-modal {
+	display: none;
+}
+
+.my-work {
+	padding-top: 0px;
+}

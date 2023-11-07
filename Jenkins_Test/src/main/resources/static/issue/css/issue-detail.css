@@ -1,0 +1,498 @@
+@charset "UTF-8";
+
+@media(min-width:1200px){
+	.card{min-width: 936px}
+}
+@media(max-width:978px){
+	.card{min-width: 935px}
+}
+
+@keyframes bounce {
+  0%, 40%, 80%, 100% { transform: translateY(0); }
+  20% { transform: translateY(-80px); }
+  60% { transform: translateY(-15px); }
+}
+
+.leftbar-close {
+	background-color: #9F7AB0;
+	border-radius: 50%;
+}
+
+.issue-detail {
+	width: 100%;
+}
+
+.issue-card {
+	margin-left: 40px;
+	margin-right: 40px;
+	padding-top: 30px;
+}
+
+.issue-location {
+	width: 90%;
+	padding-bottom: 10px;
+	font-size: 18px;
+	font-weight: 600;
+	color: #ABABAB;
+}
+
+.issue-hr {
+	width: 100%;
+	margin: 15px 0px 20px 0px;
+	border: 1.2px solid #DCDCDC;
+}
+
+.issue-write-info {
+	display: flex;
+	justify-content: space-between;
+	padding-top: 10px;
+}
+
+.user-img {
+	width: 30px;
+	height: 30px;
+	border-radius: 10px;
+}
+
+.issue-writer {
+	position: relative;
+	font-size: 20px;
+	padding: 0px 10px 0px 15px;
+	top: 3px;
+	color: #434343;
+}
+
+.issue-create {
+	position: relative;
+	font-size: 12px;
+	color: #959595;
+	top: 1px;
+}
+
+.issue-title {
+	margin: 35px 0px 20px 0px;
+	color: #393939;
+}
+
+.issue-info {
+	font-size: 18px;
+	font-weight: 600;
+}
+
+.issue-info span {
+	display: inline-block;
+	width: 60px;
+	padding-top: 15px;
+	color: #4B4B4B;
+}
+
+.issue-status-area {
+	margin-bottom: 12px;
+}
+
+.issue-status-area>span+.status-select {
+	margin-left: 25px;
+}
+
+.status-select {
+	display: inline-block;
+}
+
+.status-btn {
+	width: 130px;
+	height: 33px;
+	border: 1.5px solid #BA9BD2;
+	color: #BA9BD2;
+	border-radius: 5px;
+	background-color: white;
+}
+
+.status-btn+.status-btn {
+	margin-left: 15px;
+}
+
+.status-btn:hover {
+	color: white;
+	background-color: #BA9BD2;
+	transition:.3s;
+}
+
+.assigned-user{
+	display:inline-block;
+	width:200px !important;
+}
+
+.issue-mention-area span{
+	font-weight: 600
+}
+
+.issue-assigned-area>span+span, .issue-mention-area>span+span {
+	margin-left: 25px;
+}
+
+.issue-content {
+	margin: 60px 10px 60px 10px;
+	min-height: 250px;
+}
+
+.issue-file-area span {
+	display: inline-block;
+	width: 90px;
+	padding-top: 15px;
+	color: #4B4B4B;
+}
+
+.folder-img {
+	position: relative;
+	top: -2px;
+	margin-right: 15px;
+}
+
+.attached-folder {
+	position: relative;
+	font-size: 12px;
+	color: #ABABAB !important;
+	top: -1px;
+	width: 400px !important;
+}
+
+.subtask-wrap {
+	margin-top: 20px;
+}
+
+.subtask-text {
+	font-size: 17px;
+	width: 80px !important;
+}
+
+.add-subtask-btn {
+	display: block;
+	margin: 15px 0px 25px 0px;
+	width: 100px;
+	font-size: 16px;
+	height: 30px;
+	border: 1.5px solid #ABABAB;
+	color: #4B4B4B;
+	border-radius: 5px;
+	background-color: white;
+}
+
+.add-subtask-btn img {
+	position: relative;
+	top: -2px;
+	width: 15px;
+	height: 15px;
+	margin-right: 5px;
+}
+
+.subtask {
+	width: 100%;
+	height: 55px;
+	margin-top: 20px;
+	border: 1.4px solid #e3e2e2;
+	border-radius: 3px;
+}
+
+.subtask-item {
+	position: relative;
+	width: 97%;
+	margin-left: 1.5%;
+	margin-right: 1.5%;
+	top: -4px;
+}
+
+.subtask-item:hover {
+	cursor: pointer;
+}
+
+.subtask-status {
+	display: inline-block;
+	text-align: center;
+	width: 130px;
+	height: 33px;
+	border: 1.5px solid #BA9BD2;
+	color: white;
+	background-color: #BA9BD2;
+	border-radius: 5px;
+}
+
+.subtask-title {
+	display: inline-block;
+	font-size: 18px;
+	padding-top: 15px;
+	color: #4B4B4B;
+}
+
+.subtask-status+.subtask-title {
+	margin-left: 15px;
+}
+
+.comment-wrap {
+	width: 100%;
+	background-color: #F3F3F3;
+}
+
+.comments {
+	width: 100%;
+	padding: 20px 40px 15px 40px;
+	border-bottom: 1px solid lightgrey;
+}
+
+.comment-writer-img {
+	width: 30px;
+	height: 30px;
+	border-radius: 10px;
+}
+
+.comment-writer {
+	position: relative;
+	font-size: 20px;
+	padding: 0px 10px 0px 15px;
+	top: -3px;
+	color: #434343;
+}
+
+.comment-created, .comment-edit, .comment-delete {
+	position: relative;
+	font-size: 14px;
+	color: #959595;
+	top: -7px;
+}
+
+.comment-edit {
+	margin-left: 20px;
+}
+
+.comment-edit:hover, .comment-delete:hover {
+	cursor: pointer;
+}
+
+.comment-edit+.comment-delete {
+	margin-left: 10px
+}
+
+.comment-content {
+	margin-left:55px;
+	font-size: 16px;
+}
+
+/*     .comment-hr {
+      color: #DCDCDC;
+      margin-bottom: 0px;
+    } */
+.create-comment {
+	padding-bottom: 10px;
+	height: 95px;
+}
+
+.create-comment img {
+	position: relative;
+	top: -20px;
+}
+
+.create-comment img+.comment-input {
+	margin-left: 10px;
+}
+
+.comment-input {
+	position: relative;
+	top: 3px;
+	display: inline-block;
+	width: 88%;
+	height: 50px;
+	padding: 10px;
+	font-size: 18px;
+	resize: none;
+	border:1px solid lightgrey;
+	border-radius: 3px 0px 0px 3px;
+	border-right-style: none;
+	outline: none;
+}
+
+.comment-input::placeholder {
+	font-weight: 500;
+	color: #bababa;
+}
+
+.comment-input-submit {
+	position: relative;
+	display: inline-block;
+	width: calc(100% - 70px);
+	margin-left: 15px
+}
+
+.comment-submit-btn {
+	position:relative;
+	display: inline-block;
+	border-style: none;
+	top:-16px;
+	right:6px;
+	height:50px;
+	color: #848484;
+	font-weight: 600;
+	font-size: 18px;
+	width: 90px;
+	background-color: white;
+	border:1px solid lightgrey;
+	border-left-style: none;
+	border-radius: 0px 3px 3px 0px;
+}
+
+.issue-option {
+	display: inline-block;
+}
+
+.issue-setting-icon {
+	float: right;
+}
+
+.issue-setting-icon:hover {
+	cursor: pointer
+}
+
+.issue-setting-dropdown {
+	clear: both;
+	position: absolute;
+	top: 145px;
+	right: 75px;
+	display: none;
+	margin: 0;
+	padding: 5px 0;
+	width: 200px;
+	height:auto;
+	max-height: 106px;
+	border: 1px solid black;
+	border-radius: 5px;
+	list-style: none;
+	background-color: white;
+}
+
+.issue-setting-dropdown li {
+	display: flex;
+	align-items: center;
+	justify-content: left;
+	margin: 5px 0;
+	padding: 0 14px;
+}
+
+.issue-setting-dropdown li:hover {
+	cursor: pointer;
+	color: #6449fc;
+	transition: .3s;
+}
+
+.issue-setting-dropdown li span {
+	display: inline-block;
+	margin-left: 5px
+}
+
+.issue-delete-modal {
+	width: 100%;
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 9999;
+	animation: bounce .45s forwards;
+}
+
+.issue-delete-modal-overlay {
+	position: relative;
+	width: 100%;
+	height: 110vh;
+	background-color: black;
+	opacity: 0.6;
+}
+
+.issue-delete-modal-content {
+	position: absolute;
+	top: 45%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	text-align: center;
+	padding: 30px 15px;
+	width: 680px;
+	height: 390px;
+	overflow: auto;
+	background-color: white;
+	border-radius: 5px;
+}
+
+.issue-delete-btn-wrap {
+	margin-top: 60.5px;
+}
+
+.issue-delete-btn+.delete-cancel-btn {
+	margin-left: 10px
+}
+
+.issue-delete-btn, .delete-cancel-btn {
+	width: 45%;
+	height: 50px;
+	border: 1.4px solid #9F7AB0;
+	color: #9F7AB0;
+	background-color: white;
+	border-radius: 3px;
+}
+
+.redirect-list{
+	width: 45%;
+	height: 50px;
+	border: 1.4px solid #9F7AB0;
+	color: white;
+	background-color: #9F7AB0;
+	border-radius: 3px;	
+}
+
+.redirect-list:hover{
+	opacity: .8;
+	transition:.3s
+}
+
+.issue-delete-btn:hover, .delete-cancel-btn:hover {
+	background-color: #9F7AB0;
+	color: white;
+	transition: .3s;
+}
+
+.current-status{
+	background-color: #BA9BD2;
+	color: white;
+}
+
+.select-assign-dropdown{
+	max-height: 150px;
+	overflow: auto
+}
+
+.assign-dropdown-item{
+	height: 60px
+}
+
+.issue-location{
+	display:flex;
+	align-items: center
+}
+
+.issue-location span{
+	margin-right: 8px
+}
+
+.project-color{
+	position:relative;
+	display:inline-block;
+	width: 19px;
+	height: 19px;
+	border-radius: 5px;
+	margin: 0px 5px 0px 9px
+}
+
+.type-img{
+	width: 20px;
+	height: 20px;
+	margin: 0px 5px 0px 9px
+}
+
+.bookmark-area:hover{
+	cursor:pointer;
+}

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.naver.myhome.mybatis.mapper.TeamMapper">
+
+	<insert id="addTeam" >
+		INSERT INTO TEAM (EMPLOYEE_ID, PROJECT_ID, AUTH)
+		VALUES (#{employeeId}, #{projectId}, 1)
+	</insert>
+	
+	<select id="teamCount" resultType="integer">
+		SELECT COUNT(*)
+		FROM TEAM
+		WHERE PROJECT_ID = #{projectId}
+	</select>
+	
+	<select id="getTeam" resultType="Team">
+		SELECT T.*, U.ID AS USER_ID, U.NAME, U.EMAIL, U.PIC, U.PHONE, E.DEPARTMENT, E.POSITION, E.STATUS AS EMP_STATUS,
+		       (SELECT ID FROM USERS WHERE ID = #{sessionId}) AS MY_ID,
+		       (SELECT T2.AUTH FROM TEAM T2
+		        INNER JOIN EMPLOYEE E2 ON T2.EMPLOYEE_ID = E2.ID
+		        INNER JOIN USERS U2 ON E2.USER_ID = U2.ID
+		        WHERE U2.ID = #{sessionId} AND T2.PROJECT_ID = #{projectId}) AS MY_AUTH
+		FROM TEAM T
+		INNER JOIN EMPLOYEE E ON T.EMPLOYEE_ID = E.ID
+		INNER JOIN USERS U ON E.USER_ID = U.ID
+		WHERE PROJECT_ID = #{projectId}
+		ORDER BY CASE WHEN U.ID = #{sessionId} THEN 0 ELSE 1 END, T.AUTH DESC, U.NAME ASC
+	</select>
+	
+	<select id="inviteTeam" resultType="Team">
+	    SELECT E.ID AS EMPLOYEE_ID, U.NAME AS NAME, U.PIC AS PIC
+	    FROM USERS U
+	    INNER JOIN EMPLOYEE E ON E.USER_ID = U.ID AND E.COMPANY_ID = (
+		    SELECT COMPANY_ID 
+		    FROM PROJECT 
+		    WHERE ID = #{projectId}
+		)
+	    WHERE E.ID NOT IN (
+	        SELECT EMPLOYEE_ID 
+	        FROM TEAM
+	        WHERE PROJECT_ID = #{projectId}
+	    )
+	</select>
+	
+	<insert id="insertTeam" parameterType="integer">
+		INSERT INTO TEAM (employee_id, project_id, auth, approver)
+		VALUES (#{empId}, #{projectId}, 0, #{sessionId})
+	</insert>
+	
+	<select id="getAuth" parameterType="integer" resultType="int">
+		SELECT AUTH
+		FROM TEAM
+		WHERE EMPLOYEE_ID = (SELECT ID FROM EMPLOYEE WHERE USER_ID = #{sessionId})AND PROJECT_ID = #{projectId}
+	</select>
+	
+	<delete id="exitTeam">
+		DELETE TEAM
+		WHERE EMPLOYEE_ID = #{employeeId} AND PROJECT_ID = #{projectId}
+	</delete>
+	
+	<update id="grantAdmin">
+		UPDATE TEAM
+		SET AUTH = 1, APPROVER = #{sessionId}
+		WHERE EMPLOYEE_ID = #{empId} AND PROJECT_ID = #{projectId}
+	</update>
+	
+	<update id="revokeAdmin">
+		UPDATE TEAM
+		SET AUTH = 0, APPROVER = #{sessionId}
+		WHERE EMPLOYEE_ID = #{empId} AND PROJECT_ID = #{projectId}
+	</update>
+	
+</mapper>

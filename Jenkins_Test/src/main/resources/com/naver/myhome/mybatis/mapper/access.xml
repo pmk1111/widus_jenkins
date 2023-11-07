@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.naver.myhome.mybatis.mapper.AccessMapper">
+	
+<!-- 
+	<select id="getMyTotalWorks" resultType="Mytotalwork">
+		    
+		SELECT
+  P.title,
+  I.issue_subject,
+  I.issue_status
+FROM
+  project P
+  JOIN issue I ON P.num = I.project_id
+		
+		  
+	
+  </select> -->
+  
+
+<select id="getAccesslist" resultType="Access">
+
+SELECT COUNT(*), user_id, connectdate
+FROM connectlist
+WHERE connectdate LIKE '23/09%'
+GROUP BY user_id, connectdate
+UNION
+SELECT COUNT(*), user_id, connectdate
+FROM connectlist
+WHERE connectdate LIKE '23/10%'
+GROUP BY user_id, connectdate
+   
+   
+</select>
+
+
+  
+
+</mapper>

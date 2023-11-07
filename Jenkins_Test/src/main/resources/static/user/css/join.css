@@ -1,0 +1,155 @@
+@charset "UTF-8";
+.formDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.mt10 {
+    width: 100% ;
+    text-align: left;
+}
+.accont-wrap {
+        height: 900px;
+    }
+
+    .account {
+        padding: 6px 0 16px;
+        font-size: 36px;
+        color: #333;
+	font-weight: 700;
+	text-align: center;
+	margin-bottom: 15px;
+	margin-top: 50px;
+}
+
+.errMsg {
+	text-align: left;
+	margin-top: 10px;
+	color: #ff6b6b;
+        font-size: 14 px;
+        line-height: 21 px;
+    }
+
+    .email, .pw, .pw_check, .name, .verify {
+        color: #333;
+	font-size: 16px;
+	padding: 0 0 0 20px;
+	background: #FFFFFF;
+        width: 640px;
+        padding: 16px 20px;
+        color: #333;
+	border: 1px solid #ddd; 
+        webkit-border-radius: 8px;
+        border-radius: 8px; 
+        webkit-box-sizing: border-box; 
+        moz-box-sizing: border-box;
+        box-sizing: border-box;
+        margin-top: 10px;
+    }
+
+#emailAuthBtn {
+    margin: 20px 0 0 0;
+    color: #9f7ab0;
+    text-align: center;
+    background: #fcfcfc;
+    line-height: 52px;
+    height: 45px;
+    width: 90px;
+    border-radius: 8px;
+    font-size: 16xp;
+    font-wdight: 500;
+    border: 1px solid #9f7ab0;
+    outline: none;
+}
+
+#verify_check {
+            margin: 20px 0 0 0;
+            color: #fff;
+            text-align: center;
+            background: #9F7AB0;
+	line-height: 52px;
+	height: 52px;
+	width: 130px;
+	border-radius: 8px;
+	font-size: 16xp;
+	font-wdight: 500;
+	border: none;
+	outline: none;
+}
+.auth-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* 이 부분은 전체 높이에 맞추기 위함입니다. 필요에 따라 조절하세요. */
+}
+#confirmBtn {
+                    margin: 20px 0 0 0;
+                    color: #fff;
+                    text-align: center;
+                    background: #9F7AB0;
+    line-height: 52px;
+    height: 52px;
+    width: 640px;
+    border-radius: 8px;
+    font-size: 16xp;
+    font-wdight: 500;
+    border: none;
+    outline: none;
+    display: block;
+    margin: auto;
+    margin-top: 40px;
+}
+
+.save{
+	 margin: 20px 0 0 0;
+    color: #fff;
+                    text-align: center;
+                    background: #9F7AB0;
+    line-height: 52px;
+    height: 52px;
+    width: 100%;
+    border-radius: 8px;
+    font-size: 16xp;
+    font-wdight: 500;
+    border: none;
+    outline: none;
+    display: block;
+    margin: auto;
+/*     margin-top: 40px; */
+}
+.authNum {
+    color: #333;
+                    font-size: 16px;
+                    padding: 0 0 0 20px;
+                    background: #FFFFFF;
+                    width: 100%;
+                    padding: 16px 20px;
+                    color: #333;
+    border: 1px solid #ddd; 
+                    webkit-border-radius: 8px;
+                    border-radius: 8px; 
+                    webkit-box-sizing: border-box;
+                    moz-box-sizing: border-box;
+                    box-sizing: border-box;
+                    margin-top: 10px;
+
+                    display: block; /* 블록 요소로 설정 */
+                    margin: auto; /* 좌우 마진을 자동으로 설정하여 중앙 정렬 */
+                }
+
+                .errMsg {
+                    margin-top: 5px;
+                    margin-bottom: 5px;
+                    visibility: hidden;
+                }
+            #confirmBtn {
+                margin-top: 20px;
+                margin-bottom: 100px;
+            }
+
+            .close:hover,
+            .close:focus {
+                    color: #000;
+    text-decoration: none;
+    cursor:pointer ;
+}

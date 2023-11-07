@@ -1,0 +1,47 @@
+@charset "UTF-8";
+
+        .Chart Access {
+            position: absolute;
+            display: block;
+            border-style: solid;
+            white-space: nowrap;
+            z-index: 9999999;
+            box-shadow: rgba(0, 0, 0, 0.2) 1px 2px 10px;
+            transition: opacity 0.2s cubic-bezier(0.23, 1, 0.32, 1) 0s, visibility 0.2s cubic-bezier(0.23, 1, 0.32, 1) 0s, transform 0.4s cubic-bezier(0.23, 1, 0.32, 1) 0s;
+            background-color: rgb(255, 255, 255);
+            border-width: 1px;
+            border-radius: 4px;
+            color: rgb(102, 102, 102);
+            font: 14px/21px& amp;
+            amp;
+            amp;
+            amp;
+            amp;
+            amp;
+            amp;
+            amp;
+            amp;
+            amp;
+            quot;
+            Microsoft YaHei&amp;
+            amp;
+            amp;
+            amp;
+            amp;
+            amp;
+            amp;
+            amp;
+            amp;
+            amp;
+            quot;
+            ;
+            padding: 10px;
+            top: 0px;
+            left: 0px;
+            transform: translate3d(153px, 192px, 0px);
+            border-color: rgb(238, 102, 102);
+            pointer-events: none;
+            visibility: hidden;
+            opacity: 0;
+            "
+        }

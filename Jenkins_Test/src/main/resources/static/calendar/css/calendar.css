@@ -1,0 +1,202 @@
+@charset "UTF-8";
+
+#calendararea1 {
+	width: 1414px;
+}
+
+.file-search {
+	border: 1px solid lightgrey;
+	border-radius: 3px;
+	width: 350px;
+	height: 35px;
+	padding-left: 15px;
+	color: #6a6192;
+	font-weight: 700
+}
+
+.leftbar-close {
+	background-color: #9F7AB0;
+	border-radius: 50%;
+}
+
+.welcome-message {
+	width: 100%;
+}
+
+.my-schedule {
+	width: 66%;
+	margin-right: 6.6px;
+}
+
+.memo, .my-work {
+	min-height: 315px;
+}
+
+.create-schedule-modal, .manage-schedule-modal {
+	position: fixed;
+	display: none;
+	z-index: 1200;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.modal-overlay {
+	position: relative;
+	width: 100%;
+	height: 100vh;
+	background-color: black;
+	opacity: 0.6;
+}
+
+.modal-content {
+	position: absolute;
+	min-width: 650px; top : 30%;
+	left: 52%;
+	transform: translate(-50%, -50%);
+	background-color: white;
+	margin: 10% auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 40%;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+	top: 30%;
+}
+
+/* 모달 닫기 버튼 스타일 */
+.close {
+	text-align: right;
+	color: #aaaaaa;
+	float: right;
+	font-size: 24px;
+}
+
+.close:hover, .close:focus {
+	color: #000;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+/* 폼 스타일 */
+form {
+	margin-top: 10px;
+}
+
+label {
+	font-weight: bold;
+}
+
+input[type="text"], input[type="datetime-local"], select, textarea {
+	width: 100%;
+	padding: 10px;
+	margin-bottom: 10px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
+}
+
+input[type="submit"] {
+	background-color: #4CAF50;
+	color: white;
+	padding: 10px 20px;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+input[type="submit"]:hover {
+	background-color: #45a049;
+}
+
+.save, .modify, .remove {
+	display: flex;
+    align-items: center;
+    justify-content: space-around;
+	color: #fff;
+	text-align: center;
+	background: #9F7AB0;
+	line-height: 52px;
+	height: 40px;
+	width: 100px;
+	border-radius: 5px;
+	font-size: 16xp;
+	font-wdight: 500;
+	border: none;
+	outline: none;
+}
+
+#layout-navbar {
+	margin-top: 0px;
+}
+
+.container-p-y {
+	margin-top: 0px;
+}
+
+.content-wrapper {
+	margin-top: 0;
+}
+
+#calendararea2 {
+	margin-top: 50px;
+}
+
+#eventDescription {
+	resize: none;
+	height: 80px
+}
+
+.btn-wrap {
+	display: flex;
+	justify-content: flex-end
+}
+
+.btn-wrap button+button {
+	margin-left: 15px
+}
+
+.select-color {
+	display: block; 
+	width : 70px;
+	height: 35px !important;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	background-color: transparent;
+	border: none;
+}
+/* 안쪽부분의 디자인 변경 */
+.select-color::-webkit-color-swatch {
+	border-radius: 40px;
+	border: none;
+}
+
+input[type="datetime-local"]{
+	width: 48%
+}
+
+.start-date-wrap input{
+	display: inline-block;
+}
+
+.start-date-wrap input+input{
+	margin-left: 3%
+}
+
+form div{
+	margin-bottom: 15px
+}
+
+.btn-wrap{
+	margin-bottom:0px
+}
+
+.modal-content input, #eventCategory{
+	height:45px;
+	outline: none;
+}
+
+label{
+	margin-bottom: 5px
+}

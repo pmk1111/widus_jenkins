@@ -1,0 +1,15 @@
+@charset "UTF-8";
+
+    
+::-webkit-scrollbar {
+    width: 12px; 
+}
+
+
+::-webkit-scrollbar-thumb {
+    background-color: #999; 
+    border-radius: 6px; 
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #666; 

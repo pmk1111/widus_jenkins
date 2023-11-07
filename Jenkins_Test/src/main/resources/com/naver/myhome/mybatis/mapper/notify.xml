@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.naver.myhome.mybatis.mapper.NotifyMapper">
+
+
+    <insert id="createalarm" parameterType="com.naver.myhome.domain.Notify">
+
+INSERT INTO NOTIFY_POST(ID, NAME,MENTIONED_BY, MENTIONED_ID, POST_ID, CONTENT, NOTIFY_STATUS)
+  VALUES (notify_postid.nextval, #{NAME},#{MENTIONED_BY}, #{MENTIONED_ID}, #{POST_ID}, #{CONTENT}, #{NOTIFY_STATUS})
+</insert>
+
+                    
+   
+       
+
+    <select id="existsNotifyWithName" resultType="java.lang.Integer" parameterType="int">
+    select count(*) from NOTIFY_POST where MENTIONED_ID = #{MENTIONED_ID}
+</select>
+    
+    <update id="updatealarm" parameterType="com.naver.myhome.domain.Notify">
+   
+	UPDATE NOTIFY_POST
+	SET 
+    CONTENT = '회원님을 재언급 하였습니다.',
+    NOTIFY_TIME = sysdate
+	WHERE MENTIONED_ID = #{MENTIONED_ID}
+
+    </update>
+    
+    <select id="listalarm" resultType="com.naver.myhome.domain.Notify" parameterType="java.lang.Integer">
+    select notify_status,id,post_id,name,mentioned_by, content, ROUND((SYSDATE-notify_time)*24*60) AS CURRENTTIME
+    from NOTIFY_POST
+    where mentioned_id = #{id}
+   ORDER BY notify_status ASC, notify_time DESC
+</select>
+
+<update id="updatedNotifications" parameterType="java.lang.Integer">
+  UPDATE notify_post
+  SET NOTIFY_STATUS = 1
+  WHERE mentioned_id = #{userId} and id = #{notifyId}
+</update>
+
+<delete id="deleteNotifications" parameterType="java.lang.Integer">
+ delete from notify_post
+ where id = #{notifyId}
+
+</delete>
+
+<select id="getUnreadNotificationCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+SELECT COUNT(*) FROM notify_post WHERE mentioned_id = #{id} AND notify_status = 0
+
+</select>
+
+</mapper>
+
+
+

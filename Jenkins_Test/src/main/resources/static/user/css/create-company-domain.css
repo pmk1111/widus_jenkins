@@ -1,0 +1,120 @@
+@charset "UTF-8";
+
+.companyName, .eid {
+	color: #333;
+	font-size: 16px;
+	padding: 0 0 0 20px;
+	background: #FFFFFF;
+	width: 640px;
+	padding: 16px 20px;
+	color: #333;
+	border: 1px solid #ddd;
+	-webkit-border-radius: 8px;
+	border-radius: 8px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+    margin-top: 5px;
+}
+
+.errMsg {
+	text-align: left;
+	margin-top: 10px;
+	color: #ff6b6b;
+	font-size: 14px;
+	line-height: 21px;
+}
+
+.errMsg {
+	margin-top: 5px;
+	margin-bottom: 5px;
+	visibility: hidden;
+}
+
+.btn-join {
+	margin-top: 20px;
+	margin-bottom: 100px;
+}
+
+#header {
+	background-color: #9F7AB0;
+	heigh: 72.5px !important;
+}
+
+.auth-section {
+	padding-top: 100px;
+	width: 100%;
+}
+
+.accont-wrap {
+	width: 100%;
+}
+
+.login-text, .login-company, .btn-join {
+	text-align: center;
+}
+
+.login-text {
+	display: block;
+	font-size: 36px;
+	color: #333;
+	font-weight: 700;
+	margin: 0 auto 30px;
+}
+
+.invite-login, .login-company {
+	margin: 0 0 50px 0;
+	color: #333;
+	font-size: 18px;
+	font-weight: bold;
+	text-align: center;
+}
+
+.btn-join {
+	width: 100% margin: 20px 0 0 0;
+	color: #fff;
+	text-align: center;
+	background: #9F7AB0;
+	line-height: 52px;
+	height: 52px;
+	width: 640px;
+	border-radius: 8px;
+	font-size: 16xp;
+	font-wdight: 500;
+	border: none;
+	outline: none;
+}
+
+.url-tit {
+	font-weight: 700;
+	font-size: 16px;
+	color: #333;
+}
+
+.companyDomain {
+	width: 100%;
+	padding: 16px 20px;
+	margin: 0 10px;
+	color: #333;
+	border: 1px solid #ddd;
+	-webkit-border-radius: 8px;
+	border-radius: 8px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+.join-company-url {
+	margin-top: 10px;
+	color: #623ad6;
+	font-size: 14px;
+	line-height: 21px;
+}
+
+.login-text {
+	margin-top: 50px;
+}
+
+.auth-section {
+	padding-top: 0px;
+}

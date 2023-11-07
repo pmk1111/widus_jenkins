@@ -1,0 +1,144 @@
+@charset "UTF-8";
+
+.selected-schedule-modal {
+	width: 100%;
+	display: none;
+	position: fixed;
+	top:0;
+	lefr:0;
+	z-index: 9999;
+}
+
+.modal-overlay {
+	position: relative;
+	width: 100%;
+	height: 100vh;
+	background-color: black;
+	opacity: 0.6;
+}
+
+.selected-schedule-content {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 700px;
+	height: 520px;
+	overflow: auto;
+	background-color: white;
+	border-radius: 3px;
+}
+
+.schedule-user-info{
+	margin:20px;
+	padding-left: 20px;
+}
+
+.user-img{
+	width: 50px;
+	border-radius: 5px
+}
+
+.user-img + .name{margin-left: 10px}
+
+.selected-schedule-modal .schedule-title-date{
+	display: flex;	
+	flex-direction: row;
+	margin-top:30px;
+	
+}
+
+.schedule-created-at{
+	display: flex;
+	flex-direction: column;
+	width:68px;
+	margin-left: 20px;
+	border-style: none;
+	box-shadow: 0 0 6px rgba(0,0,0,.1);
+}
+
+.schedule-month, .schedule-day{
+	display:flex;
+	justify-content: space-around;
+	align-items: center;
+	width:68px;
+}
+.schedule-month{ 	
+	height:30.9px;
+	text-align: center;
+	border-radius: 5px 5px 0px 0px;
+}
+
+.schedule-day{
+	height:39.19px;
+	text-align: center;	
+	background: #5fae9d;
+	color:white;
+	border-radius: 0px 0px 5px 5px
+}
+
+.title-duration{
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	margin-left: 25px
+}
+
+.title-duration h4{
+	color:#333333;
+}
+
+.title, .duration{
+	display:flex;
+}
+
+.title{
+	align-items: center;
+	margin:0;
+}
+
+.schedule-place-type{
+	display:flex;
+	flex-direction: column;
+	justify-content: space-around;
+	padding-left: 10px;
+	height: 70px;
+	color:#333333;
+}
+
+.schedule-place-wrap, .schedule-type-wrap{
+	margin-left: 25px;
+}
+
+.schedule-place-type span{
+	display: inline-block;
+	font-size: 16px;
+	font-weight: 600
+}
+
+.schedule-content{
+	width: 90%;
+	margin:0 5%;
+	margin-top:30px;
+	min-height: 237px;
+	max-height: 237px;
+	overflow: auto;
+	border:1px solid lightgrey;
+	border-radius:3px;
+	padding:10px;
+	font-size: 16px;
+	font-weight: 600
+}
+
+.schedule-content pre{
+	font-size:16px;
+	font-family: 'Roboto', 'Noto Sans KR', 'Noto Sans JP', 'Be Vietnam Pro', Arial, Helvetica, sans-serif, 'Twemoji Country Flags';
+	color:#333333;
+}
+
+.schedule-place-type img{
+	opacity: .8
+}
+img + .schedule-place, img + .schedule-type{
+	margin-left: 15px;
+}

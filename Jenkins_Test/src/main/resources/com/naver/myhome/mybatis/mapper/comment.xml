@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.naver.myhome.mybatis.mapper.CommentMapper">
+	<select id="getCommentList"
+		resultType="com.naver.myhome.domain.Comment">
+		select c.*,
+		(select email from users where id = c.user_id) as comment_user_email,
+		(select pic from users where id = c.user_id) as comment_user_pic,
+		(select name from users where id = c.user_id) as comment_user_name
+		from comments c
+		where issue_id = #{issue_id}
+		order by id
+	</select>
+
+	<insert id="commentAdd">
+		<selectKey order="BEFORE" keyProperty="id" resultType="int">
+			select comment_id.nextval from dual
+		</selectKey>
+		insert into comments
+		values
+		(#{id}, #{issue_id}, SYSDATE, #{user_id}, #{content})
+	</insert>
+
+	<update id="commentUpdate" parameterType="comment">
+		update comments
+		set
+		content = #{content}
+		where id = #{id}
+	</update>
+
+	<delete id="commentDelete" parameterType="int">
+		delete comments
+		where id
+		= #{id}
+	</delete>
+</mapper>

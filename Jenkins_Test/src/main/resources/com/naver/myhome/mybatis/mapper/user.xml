@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.naver.myhome.mybatis.mapper.UserMapper">
+
+
+   <!-- 지니 -->
+   <select id="isEmail" resultType="user" parameterType="String"><!-- Member 
+         class를 별칭 -->
+      select * from users where email = #{user_email}
+   </select>
+
+   <select id="isId" resultType="user">
+      select u.pic, u.name, u.email, u.password, u.phone, e.id, c.name as companyName, e.department, e.position 
+      from users u 
+      inner join company c on c.id = (select company_id from employee where user_id = (select id from users where email = #{email}))
+      inner join employee e on u.id = e.user_id 
+      where u.email = #{email}
+   </select>
+
+   <update id="update" parameterType="user">
+      update users
+      set pic = #{pic},
+      name = #{name},
+      phone = #{phone}
+      WHERE email = #{email}
+
+   </update>
+
+   <select id="checkPwd">
+      select password
+      from users
+      where email = #{email}
+   </select>
+
+   <update id="updatePwd">
+      update users
+      set password =#{newPwd}
+      where email = #{email}
+   </update>
+
+   <delete id="delete">
+      delete from users
+      where email =#{email}
+   </delete>
+   
+   <update id="backInvited"> 
+   update users 
+   set company_invited= 0 
+   where id=#{id} 
+   </update>
+
+   <!-- /지니 -->
+
+   <!-- 혜원 -->
+
+<select id="mentionUser" parameterType="map" resultType="com.naver.myhome.domain.MentionUser">
+     SELECT DISTINCT U.ID, U.NAME
+    FROM USERS U
+    INNER JOIN EMPLOYEE E ON U.ID = E.USER_ID
+    INNER JOIN TEAM T ON E.ID = T.EMPLOYEE_ID
+    INNER JOIN PROJECT P ON T.PROJECT_ID = P.ID
+    WHERE P.ID = #{projectId}
+    AND U.NAME LIKE '%' || #{name} || '%'
+   AND U.ID != #{userId}
+</select>
+
+
+ <select id="getCreateUser" resultType="String">
+ SELECT name FROM users WHERE id = #{id}
+ </select>
+ 
+  <select id="getAssignedUser" resultType="String">
+ select name from users where id = #{id}
+ </select>
+ 
+   <!-- 혜원끝 -->
+
+   <!-- #########################################주영###################################### 
+      START -->
+   <select id="selectByMail" resultType="int"
+      parameterType="String">
+      select count(*) from users where email = #{email}
+   </select>
+
+   <select id="getUserId" resultType="int">
+      select id from users where
+      email = #{email}
+   </select>
+
+   <insert id="insert" parameterType="user">
+      insert into users
+      (id,email,password,name)
+      values
+      (user_id.nextval,#{email},#{password},#{name})
+   </insert>
+
+   <select id="getEmplyeeInfoById" parameterType="user"
+      resultType="user">
+      select ID, USER_ID , COMPANY_ID ,STATUS, AUTH, DEPARTMENT,
+      POSITION , VISIT_COUNT FROM EMPLOYEE WHERE USER_ID = #{email};
+   </select>
+
+   <update id="updateUserInfo" parameterType="user">
+      UPDATE USERS SET
+      EMAIL = #{email},
+      NAME = #{name},
+      SECURITY = #{security},
+      COMPANY_INVITED = #{companyInvited},
+      COMPANY_STATUS = #{companyStatus}
+      WHERE ID = #{id}
+   </update>
+   
+   <select id="getEmail" resultType="string">
+      SELECT email FROM USERS
+      WHERE id = #{userId}
+   </select>
+   
+
+   <!-- #########################################주영####################################### 
+      END -->
+
+</mapper>

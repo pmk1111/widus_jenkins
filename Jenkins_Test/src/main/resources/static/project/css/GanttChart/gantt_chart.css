@@ -1,0 +1,243 @@
+@charset "UTF-8";
+
+.body-wrapper {
+  font-family: sans-serif;
+}
+
+h1 {
+  text-align: center;
+  color: #636262;
+}
+
+.gantt {
+	height:100%;
+}
+
+/** buttons to change view mode */
+.button {
+  margin: 5px;
+  padding: 5px 10px;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+.button.active {
+  background-color: #636262;
+  color: #ddd;
+}
+
+/** bar and bar progress of the different color */
+/* initial state */
+.gantt .bar-wrapper.blue .bar {
+  fill: hsl(240, 50%, 57%);
+}
+.gantt .bar-wrapper.blue .bar-progress {
+  fill: hsl(240, 100%, 77%);
+}
+.gantt .bar-wrapper.pink .bar {
+  fill: hsl(347, 50%, 57%);
+}
+.gantt .bar-wrapper.pink .bar-progress {
+  fill: hsl(347, 100%, 77%);
+}
+.gantt .bar-wrapper.purple .bar {
+  fill: hsl(298, 50%, 57%);
+}
+.gantt .bar-wrapper.purple .bar-progress {
+  fill: hsl(298, 100%, 77%);
+}
+
+/* hover state */
+.gantt .bar-wrapper.blue:hover .bar-progress {
+  fill: hsl(240, 100%, 77%);
+}
+.gantt .bar-wrapper.pink:hover .bar-progress {
+  fill: hsl(347, 100%, 77%);
+}
+.gantt .bar-wrapper.purple:hover .bar-progress {
+  fill: hsl(298, 100%, 77%);
+}
+
+/* active state */
+.gantt .bar-wrapper.blue.active .bar {
+  fill: hsl(240, 50%, 57%);
+}
+.gantt .bar-wrapper.blue.active .bar-progress {
+  fill: hsl(240, 100%, 77%);
+}
+.gantt .bar-wrapper.pink.active .bar {
+  fill: hsl(347, 50%, 57%);
+}
+.gantt .bar-wrapper.pink.active .bar-progress {
+  fill: hsl(347, 100%, 77%);
+}
+.gantt .bar-wrapper.purple.active .bar {
+  fill: hsl(298, 50%, 57%);
+}
+.gantt .bar-wrapper.purple.active .bar-progress {
+  fill: hsl(298, 100%, 77%);
+}
+
+/** custom popup  */
+.details-container {
+  width: 150px;
+  background-color: #fff;
+  color: #434141;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+}
+
+.details-container > h5,
+.details-container > p {
+  border-top: 2px solid #ddd;
+  margin: 0;
+  padding: 10px;
+  font-size: 0.7rem;
+}
+
+.details-container > h5 {
+  border-top: none;
+}
+
+.gantt .grid-background {
+  fill: none;
+  height:100%;
+}
+.gantt .grid-header {
+  fill: #ffffff;
+  stroke: #e0e0e0;
+  stroke-width: 1.4;
+  position: sticky;
+    top: 0;
+}
+.gantt .grid-row {
+  fill: #ffffff;
+}
+.gantt .grid-row:first-child {
+  fill: #ececec;
+}
+.gantt .row-line {
+  stroke: #ebeff2;
+}
+.gantt .tick {
+  stroke: #e0e0e0;
+  stroke-width: 0.2;
+}
+.gantt .tick.thick {
+  stroke-width: 0.4;
+}
+.gantt .today-highlight {
+  fill: #9c37b557;
+  opacity: 0.5;
+}
+.gantt .arrow {
+  fill: none;
+  stroke: #666;
+  stroke-width: 1.4;
+}
+.gantt .bar {
+  fill: #b8c2cc;
+  stroke: #8D99A6;
+  stroke-width: 0;
+  transition: stroke-width 0.3s ease;
+  user-select: none;
+}
+.gantt .bar-progress {
+  fill: #a3a3ff;
+}
+.gantt .bar-invalid {
+  fill: transparent;
+  stroke: #8D99A6;
+  stroke-width: 1;
+  stroke-dasharray: 5;
+}
+.gantt .bar-invalid ~ .bar-label {
+  fill: #555;
+}
+.gantt .bar-label {
+  fill: #fff;
+  dominant-baseline: central;
+  text-anchor: middle;
+  font-size: 12px;
+  font-weight: lighter;
+  display: none;
+}
+.gantt .bar-label.big {
+  fill: #555;
+  text-anchor: start;
+}
+.gantt .handle {
+  fill: #ddd;
+  cursor: ew-resize;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease;
+}
+.gantt .bar-wrapper {
+  cursor: pointer;
+  outline: none;
+}
+.gantt .bar-wrapper:hover .bar {
+  fill: #a9b5c1;
+}
+.gantt .bar-wrapper:hover .bar-progress {
+  fill: #8a8aff;
+}
+.gantt .bar-wrapper:hover .handle {
+  visibility: visible;
+  opacity: 1;
+}
+.gantt .bar-wrapper.active .bar {
+  fill: #a9b5c1;
+}
+.gantt .bar-wrapper.active .bar-progress {
+  fill: #8a8aff;
+}
+.gantt .lower-text, .gantt .upper-text {
+  font-size: 12px;
+  text-anchor: middle;
+}
+.gantt .upper-text {
+  fill: #555;
+}
+.gantt .lower-text {
+  fill: #333;
+}
+.gantt .hide {
+  display: none;
+}
+
+.gantt-container {
+  position: relative;
+  overflow: auto;
+  font-size: 12px;
+}
+.gantt-container .popup-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.8);
+  padding: 0;
+  color: #959da5;
+  border-radius: 3px;
+}
+.gantt-container .popup-wrapper .title {
+  border-bottom: 3px solid #a3a3ff;
+  padding: 10px;
+}
+.gantt-container .popup-wrapper .subtitle {
+  padding: 10px;
+  color: #dfe2e5;
+}
+.gantt-container .popup-wrapper .pointer {
+  position: absolute;
+  height: 5px;
+  margin: 0 0 0 -5px;
+  border: 5px solid transparent;
+  border-top-color: rgba(0, 0, 0, 0.8);
+}
+
+.task-zero .bar-invalid {
+    display: none;
+}

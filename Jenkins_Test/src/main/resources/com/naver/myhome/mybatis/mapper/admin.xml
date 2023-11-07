@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.naver.myhome.mybatis.mapper.AdminMapper">
+
+    <!-- 지니 -->
+    <!-- 정상 -->
+    <select id="waitUser" resultType="user">
+        select *
+        from users
+        where company_invited = #{companyId} and company_status = 0
+        order by created_at
+    </select>
+
+    <!-- 가입대기 승인/거절 -->
+    <update id="approveUser">
+        update users
+        set company_status = 1
+        where id = #{userId} and company_invited = #{companyId}
+    </update>
+
+    <!-- 가입승인 후 직원 추가 -->
+    <insert id="addEmployee">
+        INSERT INTO employee (id, user_id, company_id)
+        VALUES (employee_id.nextval, #{userId}, #{companyId})
+    </insert>
+
+    <!-- 직원 리스트 호출 -->
+    <select id="findEmployee" resultType="employee">
+        select u.pic, e.id ,u.name, e.department, e.position, u.email, u.phone,
+        e.auth
+        from employee e
+        inner join
+        users u on e.user_id = u.id
+        where e.company_id = #{companyId}
+        and e.status = 0
+        order by e.id
+    </select>
+
+    <!-- 가입 거부 -->
+    <update id="rejectUser">
+        update users
+        set company_invited = 0
+        where id = #{userId} and company_invited = #{companyId}
+    </update>
+
+    <!-- 이용 중지 -->
+    <update id="stopEmpStatus" parameterType="int">
+        update employee
+        set status = 1
+        where id=#{empId}
+    </update>
+
+    <update id="updateAuth" parameterType="int">
+        update employee
+        set auth = DECODE(auth, 'N', 'Y', 'N')
+        where id=#{employeeId}
+    </update>
+    
+    <update id="updateSecurity" parameterType="int"> 
+    	UPDATE users u 
+    	SET u.security = (CASE 
+    		WHEN u.security = 'ROLE_MEMBER' THEN 'ROLE_ADMIN' 
+    		WHEN u.security = 'ROLE_ADMIN' THEN 'ROLE_MEMBER' 
+    		ELSE u.security 
+    	END) 
+    	WHERE u.id = (SELECT e.user_id FROM employee e WHERE e.id = #{employeeId}) 
+    </update>
+
+    <select id="countUser" resultType="int">
+        select count(*)
+        from users
+        where company_invited = #{companyId} and company_status = 0
+    </select>
+
+    <select id="countEmp" resultType="int">
+        SELECT COUNT(*)
+	    FROM employee e
+	    INNER JOIN users u ON u.ID = e.USER_ID
+	    WHERE (u.COMPANY_INVITED = #{companyId} OR e.COMPANY_ID = #{companyId})
+        AND (u.COMPANY_STATUS = 1 OR u.COMPANY_STATUS IS NULL)
+        AND e.STATUS = 0
+    </select>
+
+    <select id="countStop" resultType="int">
+        SELECT COUNT(*)
+	    FROM employee e
+	    INNER JOIN users u ON u.ID = e.USER_ID
+	    WHERE (u.COMPANY_INVITED = #{companyId} OR e.COMPANY_ID = #{companyId})
+        AND (u.COMPANY_STATUS = 1 OR u.COMPANY_STATUS IS NULL)
+        and e.STATUS = 1
+    </select>
+
+    <!-- 이용중지 리스트 호출 -->
+    <select id="getStopList" resultType="employee">
+        select u.pic, e.id ,u.name, e.department, e.position, u.email, u.phone
+        from employee e
+        inner join
+        users u on e.user_id = u.id
+        where e.company_id = #{companyId}
+        and e.status = 1
+        order by e.id
+    </select>
+
+    <!-- 이용 재개 -->
+    <update id="backEmp" parameterType="int">
+        update employee
+        set status = 0
+        where id=#{empId}
+    </update>
+
+	<!--  직원 정보 상세보기 -->
+	<select id="employeeInfo" resultType="Employee"> 
+		select u.name, u.email, u.password, u.phone, e.id, c.name as company_name, e.department, e.position 
+		from employee e 
+		inner join company c on c.id = e.company_id 
+		inner join users u on u.id = e.user_id 
+		where e.id = #{empId} 
+	</select>
+	
+<!--  직원 정보 업데이트  -->
+	<update id="updateEmpInfo"> 
+		UPDATE employee 
+		SET department = #{department}, 
+		position = #{position} 
+		WHERE id = #{id} 
+	</update>
+		
+	<update id="updateUserInfo"> 
+		UPDATE users 
+		SET name = #{name}, phone = #{phone} 
+		WHERE id = (SELECT user_id FROM employee WHERE id = #{id}) 
+	</update>
+
+    <!-- 회사 정보 -->
+    <select id="companyinfo" resultType="Company"> 
+    	select c.id, c.name, c.domain, c.zipcode, c.address, c.detail_address
+    	from company c inner join users u on u.id = c.user_id 
+    	where email = #{email} 
+    </select>
+
+    <select id="companyName" resultType="String">
+        select name
+        from company
+        where id = #{companyId}
+    </select>
+
+    <select id="companyDomain" resultType="String">
+        select domain
+        from company
+        where id = #{companyId}
+    </select>
+    
+    <select id="companyZipcode" resultType="String"> 
+    	select zipcode 
+    	from company 
+    	where id = #{companyId} 
+    </select>
+    
+	<select id="companyAddress" resultType="String"> 
+		select address 
+		from company 
+		where id = #{companyId} 
+	</select>
+	
+	<select id="companyDetailAddress" resultType="String"> 
+		select detail_address 
+		from company 
+		where id = #{companyId} 
+	</select>
+
+    <!-- 회사명 업데이트 -->
+    <update id="updateName">
+        update company
+        set name = #{companyName}
+        where id = #{companyId}
+    </update>
+
+    <!-- 회사도메인 업데이트 -->
+    <update id="updateDomain">
+        update company
+        set domain = #{companyDomain}
+        where id = #{companyId}
+    </update>
+
+    <select id="companyId" resultType="int">
+    	select c.id
+    	from company c
+    	inner join users u on c.user_id = u.id
+    	where u.email=	#{email}
+    </select>
+    
+	<!--  회사주소 업데이트  -->
+	<update id="updateZipcode"> 
+		update company 
+		set zipcode = #{companyZipcode} 
+		where id = #{companyId} 
+	</update>
+		
+	<update id="updateAddress"> 
+		update company 
+		set address = #{companyAddress} 
+		where id = #{companyId} 
+	</update>
+	
+	<update id="updateDetailAddress"> 
+		update company 
+		set detail_address = #{companyDetailAddress} 
+		where id = #{companyId} 
+	</update>
+	
+	 
+    <!-- 혜원 -->
+    <select id="getAccesslist" resultType="Access">
+        SELECT COUNT(*), user_id, connectdate
+        FROM connectlist
+        WHERE connectdate LIKE '23/09%'
+        GROUP BY user_id, connectdate
+        UNION
+        SELECT COUNT(*), user_id, connectdate
+        FROM connectlist
+        WHERE connectdate LIKE '23/10%'
+        GROUP BY user_id, connectdate
+    </select>
+
+    <select id="getDayCount" resultType="Access">
+        SELECT TO_DATE(CONNECTDATE, 'YYYY-MM-DD') AS date, COUNT(*) AS daycount
+        FROM connectlist
+        WHERE CONNECTDATE >= TO_DATE(TO_CHAR(SYSDATE - 7, 'YYYY-MM-DD'), 'YYYY-MM-DD')
+        GROUP BY TO_DATE(CONNECTDATE, 'YYYY-MM-DD')
+        ORDER BY TO_DATE(CONNECTDATE, 'YYYY-MM-DD')
+    </select>
+
+
+	<!-- <select id="getMonthCount" resultType="Access">
+	
+	SELECT TO_CHAR(CONNECTDATE, 'YYYY-MM') AS month, COUNT(*) AS monthcount
+	FROM connectlist
+	WHERE CONNECTDATE >= ADD_MONTHS(TRUNC(SYSDATE), -6)
+	GROUP BY TO_CHAR(CONNECTDATE, 'YYYY-MM')
+	ORDER BY TO_CHAR(CONNECTDATE, 'YYYY-MM')
+	   
+	   
+	</select> -->
+
+<!--     <select id="getMonthCount" resultMap="accessResultMap">
+        SELECT TO_CHAR(CONNECTDATE, 'YYYY-MM') AS month, COUNT(*) AS monthcount
+        FROM connectlist
+        WHERE CONNECTDATE >= ADD_MONTHS(TRUNC(SYSDATE), -6)
+        GROUP BY TO_CHAR(CONNECTDATE, 'YYYY-MM')
+        ORDER BY TO_CHAR(CONNECTDATE, 'YYYY-MM')
+    </select> -->
+
+
+</mapper>

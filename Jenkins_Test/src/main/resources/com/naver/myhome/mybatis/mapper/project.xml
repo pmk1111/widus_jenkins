@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.naver.myhome.mybatis.mapper.ProjectMapper">
+
+	<insert id="Insert" parameterType="com.naver.myhome.domain.Project">
+	    <selectKey keyProperty="ID" resultType="int" order="BEFORE">
+	    SELECT PROJECT_ID.NEXTVAL FROM DUAL
+	    </selectKey>
+	    INSERT INTO PROJECT (ID, TITLE, SUBTITLE, COMPANY_ID, CREATOR)
+	    SELECT #{ID}, #{TITLE}, #{SUBTITLE}, EMPLOYEE.COMPANY_ID, EMPLOYEE.USER_ID
+	    FROM EMPLOYEE 
+	    WHERE EMPLOYEE.ID = #{employeeId}
+	</insert>
+	
+	<select id="getEmpId" resultType="int">
+		SELECT ID
+		FROM EMPLOYEE
+		WHERE USER_ID = #{sessionId}
+	</select>
+
+    <select id="getAllProjectList" resultType="com.naver.myhome.domain.Project">
+        SELECT PROJECT.*, ROUND((SYSDATE-UPDATED_AT)*24*60) AS CURRENTTIME, ( SELECT COUNT(*) FROM TEAM WHERE PROJECT_ID = PROJECT.ID ) AS TEAMCOUNT
+        , (SELECT AUTH FROM TEAM WHERE EMPLOYEE_ID = #{employeeId} AND PROJECT_ID = PROJECT.ID) AS MY_AUTH
+        FROM PROJECT
+        WHERE COMPANY_ID = (SELECT COMPANY_ID FROM EMPLOYEE WHERE ID = #{employeeId})
+        ORDER BY CREATED_AT DESC
+    </select>
+    
+    <select id="getFavoritProjectList" resultType="com.naver.myhome.domain.Project">
+        SELECT P.*, ROUND((SYSDATE-UPDATED_AT)*24*60) AS CURRENTTIME, ( SELECT COUNT(*) FROM TEAM WHERE PROJECT_ID = P.ID ) AS TEAMCOUNT
+        , (SELECT AUTH FROM TEAM WHERE EMPLOYEE_ID = #{employeeId} AND PROJECT_ID = P.ID) AS MY_AUTH
+        FROM PROJECT P
+        JOIN FAVORITES F ON P.ID = F.PROJECT_ID
+        WHERE F.EMPLOYEE_ID = #{employeeId}
+        ORDER BY CREATED_AT DESC
+    </select>
+    
+    <select id="getPartProjectList" resultType="com.naver.myhome.domain.Project">
+		SELECT p.*, ROUND((SYSDATE-UPDATED_AT)*24*60) AS CURRENTTIME, ( SELECT COUNT(*) FROM TEAM WHERE PROJECT_ID = P.ID ) AS TEAMCOUNT
+		, (SELECT AUTH FROM TEAM WHERE EMPLOYEE_ID = #{employeeId} AND PROJECT_ID = P.ID) AS MY_AUTH
+		FROM PROJECT P
+		JOIN TEAM T ON P.ID = T.PROJECT_ID
+		WHERE T.EMPLOYEE_ID = #{employeeId}
+		AND P.ID NOT IN (
+		    SELECT F.PROJECT_ID
+		    FROM FAVORITES F
+		    WHERE F.EMPLOYEE_ID = #{empoyeeId}
+		)
+		ORDER BY CREATED_AT DESC
+    </select>
+
+    <select id="getDetail" parameterType="int" resultType="Project">
+        SELECT *
+        FROM PROJECT
+        WHERE ID = #{id}
+    </select>
+
+    <update id="updateColor">
+        UPDATE PROJECT
+        SET COLOR = #{color}
+        WHERE ID = #{id}
+    </update>
+
+    <select id="checkFavorite" resultType="integer">
+        SELECT ID
+        FROM FAVORITES
+       	WHERE PROJECT_ID = #{projectId} AND EMPLOYEE_ID = #{employeeId}
+    </select>
+
+    <insert id="addFavorite">
+        INSERT INTO FAVORITES (EMPLOYEE_ID, PROJECT_ID)
+        VALUES (#{employeeId}, #{projectId})
+    </insert>
+
+    <delete id="removeFavorite">
+        DELETE FROM FAVORITES
+        WHERE EMPLOYEE_ID = #{employeeId} AND PROJECT_ID = #{projectId}
+    </delete>
+    
+    <select id="getDoneCount" resultType="integer">
+    SELECT COALESCE(
+    	(SELECT COUNT(*)
+		FROM ISSUE
+		WHERE UPDATED_AT >= SYSDATE - INTERVAL '7' DAY AND STATUS = 'Done' AND PROJECT_ID = #{projectId}
+		GROUP BY STATUS), 0) FROM dual
+    </select>
+    
+    <select id="getUpdateCount" resultType="integer">
+	    SELECT COUNT(*)
+	    FROM ISSUE
+	    WHERE UPDATED_AT >= SYSDATE - INTERVAL '7' DAY 
+	    AND CREATED_AT != UPDATED_AT
+	    AND PROJECT_ID = #{projectId}
+    </select>
+    
+    <select id="getCreateCount" resultType="integer">
+		SELECT COUNT(*)
+	    FROM ISSUE
+	    WHERE CREATED_AT >= SYSDATE - INTERVAL '7' DAY AND PROJECT_ID = #{projectId}
+    </select>
+    
+    <select id="getCriticalCount" resultType="integer">
+	SELECT COALESCE(
+	    (SELECT COUNT(*)
+	     FROM ISSUE
+	     WHERE UPDATED_AT >= SYSDATE - INTERVAL '7' DAY AND PRIORITY = 'critical' AND PROJECT_ID = #{projectId}
+	     GROUP BY PRIORITY), 0) FROM dual
+    </select>
+    
+    <select id="todoCount" resultType="integer">
+		SELECT COUNT(*)
+	    FROM ISSUE
+	    WHERE STATUS = 'To Do' AND PROJECT_ID = #{projectId}
+    </select>   
+     
+    <select id="progressCount" resultType="integer">
+		SELECT COUNT(*)
+	    FROM ISSUE
+	    WHERE STATUS = 'In Progress' AND PROJECT_ID = #{projectId}
+    </select>   
+     
+    <select id="allDoneCount" resultType="integer">
+		SELECT COUNT(*)
+	    FROM ISSUE
+	    WHERE STATUS = 'Done' AND PROJECT_ID = #{projectId}
+    </select>    
+    
+    <select id="resolveCount" resultType="integer">
+		SELECT COUNT(*)
+	    FROM ISSUE
+	    WHERE STATUS = 'Resolved' AND PROJECT_ID = #{projectId}
+    </select>    
+    
+    <select id="allCriticalCount" resultType="integer">
+		SELECT COUNT(*)
+	    FROM ISSUE
+	    WHERE PRIORITY = 'critical' AND PROJECT_ID = #{projectId}
+    </select>   
+     
+    <select id="highCount" resultType="integer">
+		SELECT COUNT(*)
+	    FROM ISSUE
+	    WHERE PRIORITY = 'high' AND PROJECT_ID = #{projectId}
+    </select>   
+     
+    <select id="middleCount" resultType="integer">
+		SELECT COUNT(*)
+	    FROM ISSUE
+	    WHERE PRIORITY = 'middle' AND PROJECT_ID = #{projectId}
+    </select>    
+    
+    <select id="lowCount" resultType="integer">
+		SELECT COUNT(*)
+	    FROM ISSUE
+	    WHERE PRIORITY = 'low' AND PROJECT_ID = #{projectId}
+    </select>        
+
+	<delete id="deleteProject">
+		DELETE PROJECT
+		WHERE ID = #{projectId}
+	</delete>
+	
+	<update id="modifyProject">
+		update project
+		set color=#{color}, title = #{title}, subtitle = #{subtitle}, modifier = #{sessionId}
+		where id = #{projectId} 
+	</update>
+	
+	<select id="getRecentStatus" resultType="RecentStatus">
+		SELECT RS.GUIDE, RS.ROW_ID,
+		       U.NAME AS MASTER, 
+		       UPDATE_RS.NEW_DATA AS UPDATE_DATA,
+		       ROUND((SYSDATE-RS.CHANGE_TIME)*24*60) AS CURRENTTIME, 
+		       SELECTED_USER.NAME AS SELECTED_USER,
+		       UPDATE_RS.ISSUE_SUBJECT AS ISSUE_SUBJECT,
+		       CHANGED_USER.NAME AS CHANGED_USER,
+		       UPDATE_RS.TYPE AS ISSUE_TYPE,
+		       
+		       CASE MOD(ABS(DBMS_RANDOM.RANDOM), 5)
+			   	WHEN 0 THEN 'COLOR1'
+			   	WHEN 1 THEN 'COLOR2'
+			   	WHEN 2 THEN 'COLOR3'
+			   	WHEN 3 THEN 'COLOR4'
+			   	WHEN 4 THEN 'COLOR5'
+			   END AS COLOR
+			   
+		FROM RECENT_STATUS RS
+		
+		JOIN USERS U ON RS.ACTED = U.ID
+		
+		LEFT JOIN (
+		    SELECT RS.ID, RS.NEW_DATA, 
+		    I.SUBJECT AS ISSUE_SUBJECT,
+		    I.TYPE AS TYPE
+		    FROM RECENT_STATUS RS
+		    LEFT JOIN ISSUE I ON RS.ROW_ID = I.ID
+		    WHERE RS.GUIDE IN (
+		        'modify-project', 'change-auth', 'create-issue', 'change-status', 
+		        'change-assigned', 'change-priority', 'change-type'
+		    ) AND RS.PROJECT_ID = #{project_id} 
+		) UPDATE_RS ON RS.ID = UPDATE_RS.ID
+		
+		LEFT JOIN (
+		    SELECT U.NAME, RS.ROW_ID
+		    FROM USERS U
+		    JOIN EMPLOYEE E ON U.ID = E.USER_ID
+		    JOIN TEAM T ON E.ID = T.EMPLOYEE_ID
+		    JOIN RECENT_STATUS RS ON T.ID = RS.ROW_ID
+		    WHERE RS.GUIDE = 'add-invite'
+		) SELECTED_USER ON RS.ROW_ID = SELECTED_USER.ROW_ID		
+				
+		LEFT JOIN (
+			SELECT U.NAME, RS.ROW_ID
+		    FROM USERS U
+		    JOIN RECENT_STATUS RS ON U.ID = RS.NEW_DATA
+		    WHERE RS.GUIDE = 'change-assigned'
+		) CHANGED_USER ON RS.ROW_ID = CHANGED_USER.ROW_ID
+		
+		WHERE RS.PROJECT_ID = #{project_id}
+		ORDER BY RS.CHANGE_TIME DESC		
+	</select>
+</mapper>

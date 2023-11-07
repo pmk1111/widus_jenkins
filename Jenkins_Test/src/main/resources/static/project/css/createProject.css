@@ -1,0 +1,143 @@
+@charset "UTF-8";
+
+.create-header {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 45px;
+}
+
+.create-close {
+	display: inline-block;
+	background:
+		url(../../project/img/projectboard/icon-minipop-close.svg)
+		no-repeat center/contain;
+	width: 15px;
+	height: 15px;
+	position: absolute;
+	right: 25px;
+	top: 50%;
+	transform: translateY(-50%);
+	cursor: pointer;
+}
+
+.card {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 9;
+	width: 700px;
+	height: 430px;
+	padding: 20px;
+	box-sizing: border-box; /* 패딩이 너비에 포함되도록 설정 */
+	border: 1.5px solid #363636;;
+	background-color: white;
+	border-radius: 10px;
+	box-shadow: 12px 12px 12px rgba(0, 0, 0, .8);
+	opacity: 0;
+}
+
+.CreateProject {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 10;
+	width: 600px;
+}
+
+.background-img {
+	position: relative;
+	z-index: 0;
+	float: right;
+	margin-top: 95px;
+	margin-right: 200px;
+}
+
+#background-img {
+	width: 800px;
+	height: 800px;
+}
+
+#header-span {
+	display: block;
+	font-size: 26px;
+	font-weight: 700;
+}
+
+.create-input-info {
+	margin-top: 20px;
+}
+
+.create-inputbox {
+	width: 600px;
+	height: 60px;
+	color: #6449fc;
+	font-weight: 600;
+	font-size: 15px;
+	line-height: 25px;
+	border: 0.5px solid #555;
+	border-radius: 4px;
+	box-sizing: border-box;
+	font-family: inherit;
+	padding: 0 20px;
+	box-shadow: 2px 2px 2px rgba(0, 0, 0, .3);
+}
+
+.create-textarea {
+	width: 600px;
+	height: 100px;
+	padding: 20px;
+	font-size: 14px;
+	font-weight: 500;
+	line-height: 21px;
+	border: 0.5px solid #555;
+	border-radius: 4px;
+	box-sizing: border-box;
+	font-family: inherit;
+	box-shadow: 2px 2px 2px rgba(0, 0, 0, .3);
+}
+
+.create-button, .invite-button {
+	width: 600px;
+	height: 60px;
+	border-radius: 6px;
+	margin-top: 15px;
+    border: 1px solid #9F7AB0;
+    background-color: #ffffff;
+    color: #9f7ab0;
+	font-family: inherit;
+	font-size: 15px;
+	font-weight: 550;
+	box-shadow: 2px 2px 2px rgba(0, 0, 0, .3);
+	transition: background-color 0.1s ease;
+}
+
+.create-button:hover, .invite-button:hover {
+	border: 1px solid #9F7AB0;
+	background-color: #9F7AB0;
+	color: white;
+}
+
+.invite-button+.create-button {
+	margin-left:15px;
+}
+
+@keyframes slideInFromTop {
+  0% {
+    transform: translate(-50%, -50%);
+    opacity: 0;
+  }
+  100% {
+    transform: translate(-50%,-50%);
+    opacity: 1;
+  }
+}
+
+.card-animate {
+  animation-name: slideInFromTop;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+}
