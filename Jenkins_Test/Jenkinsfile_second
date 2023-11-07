@@ -1,7 +1,8 @@
-ipeline {
+pipeline {
     environment { 
-        repository = "도커허브아이디/security"  //docker hub id와 repository 이름
-        DOCKERHUB_CREDENTIALS = credentials('dockerhub') // jenkins에 등록해 놓은 docker hub credentials 이름        
+        repository = "pmk1111/widus21"  //docker hub id와 repository 이름
+        DOCKERHUB_CREDENTIALS = credentials('dockerhub') // dockerhub : jenkins에 등록해 놓은 docker hub credentials 이름      
+        TARGET_HOST = "ubuntu@43.202.67.178"
     }
     agent any
 
@@ -14,7 +15,7 @@ ipeline {
         stage('Git Pull') {
             steps {
                  // Get some code from a GitHub repository
-                git branch: 'main', credentialsId: 'github', url: 'https://github.com/pmk1111/Jenkins_Test'
+                git branch: 'main', credentialsId: 'githubid', url: 'https://github.com/pmk1111/Jenkins_Test'
 
             }
             post {
@@ -32,7 +33,7 @@ ipeline {
         stage('Build') {
             steps {    
                 dir("Spring10_Security_War"){   ///var/jenkins_home/workspace/test_item/Jenkins_Test
-                    sh "mvn -DskipTests  clean package"
+                    sh "mvn -DskipTests clean compile package"
                     }  
             }
             post {
@@ -50,9 +51,10 @@ ipeline {
 
         stage('Dockerizing'){
             steps{
-                dir("Jenkins_Test"){   ///var/jenkins_home/workspace/test_item/Jenkins_Test/Dockerfile 위치
+                dir("Jenkins_Test"){   ///var/jenkins_home/workspace/test_item/Spring10_Security_War/Dockerfile 위치
                     sh 'echo " Image Bulid Start"'
                     sh 'docker build . -t $repository:$BUILD_NUMBER'
+                    sh 'docker build . -t $repository'
                 }
             }
                 post {
@@ -89,6 +91,7 @@ ipeline {
             steps{
                 sh 'echo " docker hub push"'
                 sh 'docker push  $repository:$BUILD_NUMBER'
+                sh 'docker push  $repository'
             }
             post {
                 success {
@@ -106,6 +109,7 @@ ipeline {
             steps{
                 sh 'echo " docker image rmi"'
                 sh "docker rmi $repository:$BUILD_NUMBER" // docker image 제거
+                sh "docker rmi $repository"              // docker image 제거
             }
             post {
                 success {
@@ -117,7 +121,24 @@ ipeline {
                     exit 1
                 }
             }
-        }    
-               
+        }      
+        
+            
+       
+       stage('multiline ssh') {
+            steps {        
+                sshagent (credentials: ['deploy-ec2']) {
+                sh """
+                    ssh -o StrictHostKeyChecking=no ${TARGET_HOST} '
+                    sudo docker-compose up -d
+                    '
+                """
+                }
+           }
+     }
+      
+       
+       
+       
     }
 }
